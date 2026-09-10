@@ -1,0 +1,85 @@
+services:
+
+  api-1:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: lab02-api-1
+    environment:
+      - INSTANCE_NAME=api-1
+      - PORT=8080
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "3001:8080"
+    depends_on:
+      - db
+    networks:
+      - lab02-net
+
+  api-2:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: lab02-api-2
+    environment:
+      - INSTANCE_NAME=api-2
+      - PORT=8080
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "3002:8080"
+    depends_on:
+      - db
+    networks:
+      - lab02-net
+
+  api-3:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: lab02-api-3
+    environment:
+      - INSTANCE_NAME=api-3
+      - PORT=8080
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "3003:8080"
+    depends_on:
+      - db
+    networks:
+      - lab02-net
+
+  db:
+    image: postgres:16-alpine
+    container_name: lab02-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./db-init:/docker-entrypoint-initdb.d
+    networks:
+      - lab02-net
+
+networks:
+  lab02-net:
+    driver: bridge
+
+volumes:
+  db-data:
+    driver: local
