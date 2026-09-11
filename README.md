@@ -81,3 +81,14 @@ Investigando encontré que Docker maneja varios tipos de red:
 - **Named volumes (con nombre)**: los administra Docker por su cuenta, son la forma recomendada para guardar datos que necesitan persistir.
 - **Bind mounts**: conectan una carpeta de tu compu directamente con una del contenedor. Los uso para el script de inicialización de la BD.
 - **tmpfs**: se guarda solo en la memoria RAM, o sea que cuando apagas el contenedor se pierde todo. No lo usé en este proyecto pero también existe.
+
+## Capturas
+
+**Contenedores corriendo:**
+
+![docker compose ps](./screenshots/docker-compose-ps.png)
+
+**Respuesta de las 3 instancias:**
+
+![curl a las 3 instancias](./screenshots/curl-instancias.png)
+
